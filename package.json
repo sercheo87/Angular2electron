@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "gulp clean:build && gulp frontend && gulp dev",
+    "electron": "gulp clean:build && gulp frontend && gulp electron && gulp run-electron",
     "build": "gulp clean:build && gulp frontend && gulp electron",
     "package": "gulp clean && gulp frontend && gulp electron && gulp package"
   },
@@ -27,6 +28,7 @@
     "gulp": "3.9.0",
     "gulp-atom-electron": "^1.8.0",
     "gulp-rename": "1.2.2",
+    "gulp-run-electron": "^2.0.0",
     "gulp-sass": "^2.3.2",
     "gulp-symdest": "^1.0.0",
     "gulp-traceur": "0.17.2",

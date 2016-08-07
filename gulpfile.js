@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     del = require('del'),
     rename = require('gulp-rename'),
     traceur = require('gulp-traceur'),
+    sass = require('gulp-sass'),
     webserver = require('gulp-webserver'),
     electron = require('gulp-atom-electron'),
     symdest = require('gulp-symdest');
@@ -10,7 +11,8 @@ var config = {
   sourceDir: 'src',
   buildDir: 'build',
   packagesDir: 'packages',
-  npmDir: 'node_modules'
+  npmDir: 'node_modules',
+  bowerDir:    'bower_components'
 };
 
 // run init tasks
@@ -81,30 +83,34 @@ gulp.task('watch', function () {
 });
 
 gulp.task('frontend', [
-  'dependencies',
-  'js',
-  'html',
-  'css'
+  'frontend:dependencies',
+  'frontend:js',
+  'frontend:html',
+  'frontend:css',
+  'frontend:sass'
 ]);
 
 // move dependencies into build dir
-gulp.task('dependencies', function () {
+gulp.task('frontend:dependencies', function () {
   return gulp.src([
-    'node_modules/traceur/bin/traceur-runtime.js',
-    'node_modules/systemjs/dist/system-csp-production.src.js',
-    'node_modules/systemjs/dist/system.js',
-    'node_modules/reflect-metadata/Reflect.js',
-    'node_modules/angular2/bundles/angular2.js',
-    'node_modules/angular2/bundles/angular2-polyfills.js',
-    'node_modules/rxjs/bundles/Rx.js',
-    'node_modules/es6-shim/es6-shim.min.js',
-    'node_modules/es6-shim/es6-shim.map'
+    config.npmDir + '/traceur/bin/traceur-runtime.js',
+    config.npmDir + '/systemjs/dist/system-csp-production.src.js',
+    config.npmDir + '/systemjs/dist/system.js',
+    config.npmDir + '/reflect-metadata/Reflect.js',
+    config.npmDir + '/angular2/bundles/angular2.js',
+    config.npmDir + '/angular2/bundles/angular2-polyfills.js',
+    config.npmDir + '/rxjs/bundles/Rx.js',
+    config.npmDir + '/es6-shim/es6-shim.min.js',
+    config.npmDir + '/es6-shim/es6-shim.map',
+    config.bowerDir + '/jquery/dist/jquery.min.js',
+    config.npmDir + '/angular2/bundles/router.js',
+    config.bowerDir + '/bootstrap-sass/assets/javascripts/bootstrap.min.js'
   ])
     .pipe(gulp.dest('build/lib'));
 });
 
 // transpile & move js
-gulp.task('js', function () {
+gulp.task('frontend:js', function () {
   return gulp.src('src/**/*.js')
     .pipe(rename({
       extname: ''
@@ -123,15 +129,27 @@ gulp.task('js', function () {
 });
 
 // move html
-gulp.task('html', function () {
+gulp.task('frontend:html', function () {
   return gulp.src('src/**/*.html')
     .pipe(gulp.dest('build'))
 });
 
 // move css
-gulp.task('css', function () {
+gulp.task('frontend:css', function () {
   return gulp.src('src/**/*.css')
     .pipe(gulp.dest('build'))
+});
+
+gulp.task('frontend:sass', function () {
+  return gulp.src(config.sourceDir + '/**/*.scss')
+    .pipe(sass({
+      style: 'compressed',
+      includePaths: [
+        config.sourceDir + '/styles',
+        config.bowerDir + '/bootstrap-sass/assets/stylesheets'
+      ]
+    }))
+    .pipe(gulp.dest(config.buildDir));
 });
 
 gulp.task('electron', function() {

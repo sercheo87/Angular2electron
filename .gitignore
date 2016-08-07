@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-node_modules/
-build/
-bower_components/
-packages/
-=======
 # Logs
 logs
 *.log
@@ -41,4 +35,8 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
->>>>>>> caa2435bd59d8319fbe1a8c2a2bbe2253bc98ff0
+
+node_modules/
+build/
+bower_components/
+packages/

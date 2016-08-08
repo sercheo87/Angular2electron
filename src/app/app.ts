@@ -8,6 +8,7 @@ var path = require('path');
 
 export class Application {
   onSave(event: KeyboardEvent) {
+    let myNotification: Notification;
     let evtMsg = ' Event target is ';
     window.alert('Saved.' + evtMsg);
     var options = [
@@ -21,6 +22,6 @@ export class Application {
         icon: path.join(__dirname, 'images/icon.png')
       }
     ];
-    new Notification(options[1].title, options[1]);
+    myNotification(options[1].title, options[1]);
   }
 }

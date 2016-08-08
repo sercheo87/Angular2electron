@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+        "suppressOutputPathCheck": true,
+        "baseUrl": ".",
+        "noEmit": false,
+        "declaration": false,
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "es6",
+        "allowNonTsExtensions": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "jsx": "react",
+        "removeComments": false,
+        "noLib": false,
+        "preserveConstEnums": false,
+        "suppressImplicitAnyIndexErrors": true
+  },
+  "exclude": [
+    "client",
+    "node_modules",
+    "typings/browser",
+    "typings/browser.d.ts"
+  ]
+}

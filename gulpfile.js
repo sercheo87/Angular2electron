@@ -95,6 +95,7 @@ gulp.task('watch', function () {
 gulp.task('frontend', [
   'frontend:dependencies',
   'frontend:js',
+  'frontend:ts',
   'frontend:html',
   'frontend:css',
   'frontend:sass',
@@ -123,6 +124,26 @@ gulp.task('frontend:dependencies', function () {
 // transpile & move js
 gulp.task('frontend:js', function () {
   return gulp.src('src/**/*.js')
+    .pipe(rename({
+      extname: ''
+    }))
+    .pipe(traceur({
+      modules: 'instantiate',
+      moduleName: true,
+      annotations: true,
+      types: true,
+      memberVariables: true
+    }))
+    .pipe(rename({
+      extname: '.js'
+    }))
+    .pipe(livereload())
+    .pipe(gulp.dest('build'));
+});
+
+// transpile & move ts
+gulp.task('frontend:ts', function () {
+  return gulp.src('src/**/*.ts')
     .pipe(rename({
       extname: ''
     }))

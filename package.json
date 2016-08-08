@@ -27,6 +27,7 @@
     "del": "^2.2.1",
     "gulp": "3.9.0",
     "gulp-atom-electron": "^1.8.0",
+    "gulp-livereload": "^3.8.1",
     "gulp-rename": "1.2.2",
     "gulp-run-electron": "^2.0.0",
     "gulp-sass": "^2.3.2",

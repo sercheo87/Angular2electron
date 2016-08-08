@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   electron = require('gulp-atom-electron'),
   symdest = require('gulp-symdest'),
   runElectron = require("gulp-run-electron");
+  var livereload = require('gulp-livereload');
 
 var config = {
   sourceDir: 'src',
@@ -85,9 +86,10 @@ gulp.task('serve', function () {
 
 // watch for changes and run the relevant task
 gulp.task('watch', function () {
-  gulp.watch('src/**/*.js', ['js']);
-  gulp.watch('src/**/*.html', ['html']);
-  gulp.watch('src/**/*.css', ['css']);
+  livereload.listen();
+  gulp.watch('src/**/*.js', ['frontend:js']);
+  gulp.watch('src/**/*.html', ['frontend:html']);
+  gulp.watch('src/**/*.css', ['frontend:css']);
 });
 
 gulp.task('frontend', [
@@ -133,6 +135,7 @@ gulp.task('frontend:js', function () {
     .pipe(rename({
       extname: '.js'
     }))
+    .pipe(livereload())
     .pipe(gulp.dest('build'));
 });
 
@@ -140,12 +143,14 @@ gulp.task('frontend:js', function () {
 gulp.task('frontend:html', function () {
   return gulp.src('src/**/*.html')
     .pipe(gulp.dest('build'))
+    .pipe(livereload())
 });
 
 // move css
 gulp.task('frontend:css', function () {
   return gulp.src('src/**/*.css')
     .pipe(gulp.dest('build'))
+    .pipe(livereload())
 });
 
 gulp.task('frontend:sass', function () {
@@ -157,6 +162,7 @@ gulp.task('frontend:sass', function () {
         config.bowerDir + '/bootstrap-sass/assets/stylesheets'
       ]
     }))
+    .pipe(livereload())
     .pipe(gulp.dest(config.buildDir));
 });
 

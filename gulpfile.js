@@ -97,7 +97,8 @@ gulp.task('frontend', [
   'frontend:js',
   'frontend:html',
   'frontend:css',
-  'frontend:sass'
+  'frontend:sass',
+  'frontend:images'
 ]);
 
 // move dependencies into build dir
@@ -144,6 +145,12 @@ gulp.task('frontend:html', function () {
   return gulp.src('src/**/*.html')
     .pipe(gulp.dest('build'))
     .pipe(livereload())
+});
+
+// move images
+gulp.task('frontend:images', function () {
+  return gulp.src('src/**/*.png')
+    .pipe(gulp.dest('build'))
 });
 
 // move css

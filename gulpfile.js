@@ -43,7 +43,8 @@ gulp.task('package:osx', function () {
   return gulp.src(config.buildDir + '/**/*')
     .pipe(electron({
       version: '0.36.7',
-      platform: 'darwin'
+      platform: 'darwin',
+      darwinIcon: '/angular2electron.icns'
     }))
     .pipe(symdest(config.packagesDir + '/osx'));
 });
